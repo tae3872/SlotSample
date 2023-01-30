@@ -47,6 +47,30 @@ public abstract class CSSymbol : MonoBehaviour
         _image = GetComponent<Image>();
         dictionaryData = CreateDictionaryData(data);
     }
+    public void StartWith(CSSymbolType t, CSCell cell, Vector3 position)
+    {
+        this.cell = cell;
+        _rect.localPosition = position;
+        SetType(t);
+    }
+    public void SetType(CSSymbolType t)
+    {
+        if (t == CSSymbolType.SymbolNone)
+        {
+            _image.sprite = null;
+            _image.rectTransform.sizeDelta = Vector3.zero;
+            return;
+        }
+        type = t;
+        _rect.pivot = new Vector2(0.5f, 0.5f);
+        replacement = null;
+
+        curr = dictionaryData[t];
+        Debug.Assert(curr != null, "Couldn't find data for type " + t);
+
+        _image.sprite = curr.sprite;
+        _image.SetNativeSize();
+    }
     private Dictionary<CSSymbolType, CSSymbolData> CreateDictionaryData(CSSymbolData[] array)
     {
         Dictionary<CSSymbolType, CSSymbolData> dictionary = new Dictionary<CSSymbolType, CSSymbolData>();
