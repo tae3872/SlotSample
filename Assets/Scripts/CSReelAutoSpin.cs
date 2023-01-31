@@ -26,6 +26,6 @@ public class CSReelAutoSpin : MonoBehaviour
         float delta = Time.time - _startTime;
         if (delta < holdDuration)
             return;
-        _reels.Set
+        _reels.SetAutoSpin(true);
     }
 }

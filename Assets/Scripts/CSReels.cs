@@ -15,11 +15,14 @@ public abstract class CSReels : MonoBehaviour
     public GameObject reel;
     public CSLine[] lines;
     public CSBottomPanel basePanel;
-    public CSFreeGamePanel
+    public CSFreeGamePanel freeGamePanel;
     public HorizontalScrollSnap scrollView;
+    public CSTopPanel topPanel;
+    public CSAlertRewardAnim rewardAlert;
     [HideInInspector] public CSReel[] reels;
     private Vector2 _tileSize;
     protected bool _autoSpin;
+    private CSReelAutoSpin _stateAutoSpin;
     //private
 
     public bool autoSpin
@@ -36,16 +39,31 @@ public abstract class CSReels : MonoBehaviour
             if (_enable == value)
                 return;
             _enable = value;
-            //if (!_freegame && !_autoSpin)
-            //{
-            //    basePanel.Set
-            //}
+            if (!_freeGame && !_autoSpin)
+            {
+            }
         }
     }
     protected CSReelsAnimation _reelAnimation;
     protected bool _freeGame;
+
+    public bool freeGame
+    {
+        get { return _freeGame; }
+        set
+        {
+            if (_freeGame == value)
+                return;
+            _freeGame = value;
+
+            if (FreeGameValueChangedEvent != null)
+            {
+                FreeGameValueChangedEvent(value);
+            }
+        }
+    }
     private void Start()
     {
-        
+
     }
 }
